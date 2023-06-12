@@ -2,6 +2,7 @@ import numpy as np
 import pickle
 import streamlit as st  
 
+
 model = pickle.load(open('modelCb.pkl','rb'))
 
 def crc_prediction(input_data):
@@ -22,12 +23,19 @@ def main():
     
     Umur = st.text_input('Umur')
     Pendapatan = st.text_input('Pendapatan')
-    KepemilikanRumah = st.text_input('Number of Steps')
+    KepemilikanRumah = st.text_input('KepemilikanRumah')
+    LamaKerja = st.text_input('LamaKerja')
+    TujuanPeminjaman = st.text_input('TujuanPeminjaman')
+    TingkatanPinjaman = st.text_input('TingkatanPinjaman')
+    JumlahPinjaman = st.text_input('JumlahPinjaman')
+    SukuBunga = st.text_input('SukuBunga')
+    JumlahHistoriPeminjaman = st.text_input('JumlahHistoriPeminjaman')
     
     diagnosis = ''
     
     if st.button('PREDICT'):
-        diagnosis = stresslevel_prediction([Humidity, Temperature, Step_count])
+        diagnosis = crc_prediction([Umur,Pendapatan,KepemilikanRumah,LamaKerja,TujuanPeminjaman,TingkatanPinjaman,
+                                    JumlahPinjaman,SukuBunga,JumlahHistoriPeminjaman])
         
     st.success(diagnosis)
     
