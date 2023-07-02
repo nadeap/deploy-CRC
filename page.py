@@ -8,15 +8,14 @@ model = pickle.load(open('modelCb.pkl','rb'))
 def crc_prediction(input_data):
     id_np_array = np.asarray(input_data)
     id_reshaped = id_np_array.reshape(1,-1)
-
     prediction = model.predict(id_reshaped)
     print(prediction)
 
     if(prediction[0]==0):
-        print("Credit Status: Tidak Bermasalah")
+        return 'Credit Tidak Bermasalah'
     else:
-        print("Credit Status: Bermasalah")
-
+        return 'Kredit Bermasalah'
+    
 def main():
     
     st.title('CRC PREDICTIONS')
@@ -34,10 +33,13 @@ def main():
     diagnosis = ''
     
     if st.button('PREDICT'):
-        diagnosis = crc_prediction([Umur,Pendapatan,KepemilikanRumah,LamaKerja,TujuanPeminjaman,TingkatanPinjaman,
+        try:
+            diagnosis = crc_prediction([Umur,Pendapatan,KepemilikanRumah,LamaKerja,TujuanPeminjaman,TingkatanPinjaman,
                                     JumlahPinjaman,SukuBunga,JumlahHistoriPeminjaman])
-        
-    st.success(diagnosis)
+        except ValueError:
+            diagnosis = 'Invalid input(s)'
+
+    st.success(f'Credit Status: {diagnosis}')
     
 if __name__=='__main__':
     main()
