@@ -3,7 +3,7 @@ import pickle
 import streamlit as st  
 
 
-model = pickle.load(open('modelCb.pkl','rb'))
+model = pickle.load(open('modelRF.pkl','rb'))
 
 def crc_prediction(input_data):
     id_np_array = np.asarray(input_data)
